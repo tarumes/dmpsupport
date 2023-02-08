@@ -4,10 +4,14 @@
     - {ok}
 < begin
 
-// Set arrays
+////////////////////
+//     Arrays     //
+////////////////////
 ! array hello = hello|hi|good\smorning|good\sevening
 
-// Substitutions
+////////////////////
+//  Substitutions //
+////////////////////
 ! sub &quot;    = "
 ! sub &apos;    = '
 ! sub &amp;     = &
@@ -148,46 +152,70 @@
 ! sub (f)       = rose
 ! sub (w)       = wilted rose
 
-// Subfunctions
+
+////////////////////
+//  Subfunctions  //
+////////////////////
 > object getTimeDiff javascript
 	var d = new Date(parseInt(args[0]));
 	var now = new Date();
 	return (now.getFullYear() - d.getFullYear());
 < object
 
-// RANDOM TOPIC
+////////////////////
+//  RANDOM TOPIC  //
+////////////////////
+
+// connection errors
++ can not join because the destination PC denies access
+- That means the target server machine refuses your connection (firewall), you have to allow incomming connections on the target machine
+
 + [*] connection error no connection could be made because the target machine actively refused it [*]
 - That means the target server machine refuses your connection (firewall), you have to allow incomming connections on the target machine
 
-+ do (most|all) mods work with dmp
-- yes all mods work with DMP there is only one exception all mods that are time based like for example life support mods.
-
-+ how (to|do i) install [mod|dmp]
-- via CKANor by hand\nhere is a example how it should look like\n```\n📂\sKerbal\sSpace\sProgram\n\s┗📁\sGameData\n\s\s\s┣📁\sDarkMultiPlayer\n\s\s\s┃\s┣📁\sButton\n\s\s\s┃\s┣📁\sPlugins\n\s\s\s┃\s┣📄\sgit-version.txt\n\s\s\s┃\s┣📄\sLICENCE.txt\n\s\s\s┃\s┗📄\sREADME.txt\n\s\s\s┗📁\sSquad\n```
-
-+ what is cgnat
-- Carrier Grade Network Translation.\nIt simplay means: You cant offer any services to others on the internet.\nIts your ISPs fault blame them.
-
-+ do i need to port foward to host a server
-- yes or hamachi
-
-+ can i host it private for my friends
-- yes
-
-+ if i have a (non steam|epic) version of the game am i able to play [multiplayer]
-- yes
++ [*] no response from remote host [*]
+- Check here <https://dmpcheck.52k.de/>\nAlternative: <https://www.canyouseeme.org>\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
 
 + my * cant connect
-- Did you setup port forwarding?\nDid you used the correct IP?\nmore here -> https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting
+- Did you setup port forwarding?\nDid you used the correct IP?\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
 
 + (@hello) [(i|we)] [need help] my * cant connect
-- Hello <@<id>>,\nDid you setup port forwarding?\nDid your <star3> used the correct IP?\nmore here -> https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting
+- Hello <@<id>>,\nDid you setup port forwarding?\nDid your <star3> used the correct IP?\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
 
 + [i|we] cant connect to [my] * server
-- Is port forwarding correct?\nIs the correct IP used to connect?\nMaybe more here -> https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting
+- Is port forwarding correct?\nIs the correct IP used to connect?\nMaybe more here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
 
 + i open port # [tcp and udp] but [i|he|she|it|me] cant connect
-- Do check your Port Forwardings are for TCP and UDP and if you used the correct IP, if yes can you open a commandline window and type\n`tracert -4 8.8.8.8` post it here and wait for reply.
+- Do check your Port Forwardings are for TCP and UDP and if you used the correct IP, if yes can you open a commandline window and type\n`tracert -4 8.8.8.8` post it here and wait for reply.\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
+
+// port forwarting questions
++ do i have to do the port forwarding thing
+- yes or hamachi\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
+
++ do i need [to] port foward [to|for] host a server
+@ do i have to do the port forwarding thing
+
+// general questions
++ \@1071810754623307926 are you a bot
+- Yes, <https://github.com/tarumes/dmpsupport>
+
++ is \@1042129535937814609 a bot
+- Yes, this is our latest invention: we have built a real human brain into a machine for this purpose.
+
++ do (most|all) mods work with dmp
+- yes all mods work with DMP there is only one exception all mods that are time based like for example life support mods.\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w>
+
++ how (to|do i) install [mod|dmp]
+- via CKAN <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#ckan> or by hand\nhere is a example how it should look like\n```\n📂\sKerbal\sSpace\sProgram\n\s┗📁\sGameData\n\s\s\s┣📁\sDarkMultiPlayer\n\s\s\s┃\s┣📁\sButton\n\s\s\s┃\s┣📁\sPlugins\n\s\s\s┃\s┣📄\sgit-version.txt\n\s\s\s┃\s┣📄\sLICENCE.txt\n\s\s\s┃\s┗📄\sREADME.txt\n\s\s\s┗📁\sSquad\n```
+
++ what is cgnat
+- Carrier Grade Network Translation.\nIt simplay means: You cant offer any services to others on the internet.\nIts your ISPs fault blame them.\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
+
++ can i host it private for my friends
+- yes\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
+
++ if i have a (non steam|epic) version of the game am i able to play [multiplayer]
+- yes\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
 
 + is there a tutorial video how to (install|use) dmp
-- No <@<id>>, but a realy good text variant -> https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting\nBut the script for it is there. would you make it?
+- No <@<id>>, but a realy good text variant -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w>\nBut the script for it is there. would you make it?
