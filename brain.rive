@@ -174,7 +174,7 @@
 - That means the target server machine refuses your connection (firewall), you have to allow incomming connections on the target machine
 
 + [*] no response from remote host [*]
-- Check here <https://dmpcheck.52k.de/>\nAlternative: <https://www.canyouseeme.org>\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
+- Check here <https://dmpcheck.52k.de/>\nAlternative: <https://www.canyouseeme.org>\nCheck there if your IP is accessible from the internet.\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
 
 + my * cant connect
 - Did you setup port forwarding?\nDid you used the correct IP?\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
