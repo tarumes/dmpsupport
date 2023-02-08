@@ -167,7 +167,7 @@
 ////////////////////
 
 // connection errors
-+ can not join because the destination PC denies access
++ can not join because the destination pc                                                                                                                                                                                                                                                                       denies access
 - That means the target server machine refuses your connection (firewall), you have to allow incomming connections on the target machine
 
 + [*] connection error no connection could be made because the target machine actively refused it [*]
@@ -176,17 +176,23 @@
 + [*] no response from remote host [*]
 - Check here <https://dmpcheck.52k.de/>\nAlternative: <https://www.canyouseeme.org>\nCheck there if your IP is accessible from the internet.\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
 
-+ my * cant connect
-- Did you setup port forwarding?\nDid you used the correct IP?\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
-
 + (@hello) [(i|we)] [need help] my * cant connect
 - Hello <@<id>>,\nDid you setup port forwarding?\nDid your <star3> used the correct IP?\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
 
++ [*] a connection attempt failed because the connected component did not respond correctly after a period of time or the established connection failed because the connected host did not respond [*]
+@ but my friends cant join
+
++ my * cant connect
+@ but my friends cant join
+
 + [i|we] cant connect to [my] * server
-- Is port forwarding correct?\nIs the correct IP used to connect?\nMaybe more here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
+@ but my friends cant join
 
 + i open port # [tcp and udp] but [i|he|she|it|me] cant connect
-- Do check your Port Forwardings are for TCP and UDP and if you used the correct IP, if yes can you open a commandline window and type\n`tracert -4 8.8.8.8` post it here and wait for reply.\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
+@ but my friends cant join
+
++ but my friends cant join
+- Do check your port forwardings for TCP and UDP and if you used the correct IP, if yes can you open a commandline window on the server and type\nWindows: `tracert -4 8.8.8.8`\n post it here and wait for reply.\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
 
 // port forwarting questions
 + do i have to do the port forwarding thing
@@ -195,12 +201,24 @@
 + do i need [to] port foward [to|for] host a server
 @ do i have to do the port forwarding thing
 
++ how do i do router settings
+- Go to <https://portforward.com/> klick on "Router Guides" and select your brand from the list.\nDMP does need port 6702 TCP & UDP\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w>
+
 // general questions
 + \@1071810754623307926 are you a bot
 - Yes, <https://github.com/tarumes/dmpsupport>
 
 + is \@1042129535937814609 a bot
 - Yes, this is our latest invention: we have built a real human brain into a machine for this purpose.
+
++ how to host server
+- Tutorial here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w
+
++ help me set up a server on a linux vps
+@ how to host server
+
++ how to download the mod
+- Visit <https://spacedock.info/> or use CKAN <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#ckan>
 
 + do (most|all) mods work with dmp
 - yes all mods work with DMP there is only one exception all mods that are time based like for example life support mods.\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w>
@@ -217,5 +235,20 @@
 + if i have a (non steam|epic) version of the game am i able to play [multiplayer]
 - yes\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
 
-+ is there a tutorial video how to (install|use) dmp
++ [is there a] (tutorial video|video tutorial video) how to (install|use) dmp
 - No <@<id>>, but a realy good text variant -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w>\nBut the script for it is there. would you make it?
+
++ is there a [good] tutorial on how to make a server
+- Yes, -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w>
+
++ incompatible (protocol|version)
+- Your DMP (and / or KSP) version differs from the server version. Get the matching version.\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
+
++ (@hello) how (do you|to) make a sever
+- Here, -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w>
+
++ how do you add mods to a dmp server
+- Tutorial here, -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w>
+
++ how do i keep my server (up|running) [*]
+- This can be done on Linux via "systemd".\nexample DMPServer unit file for systemd on linux: <https://github.com/godarklight/DarkMultiPlayer/blob/master/dmp%40.service>\nYou may ask google for how to register "systemd" service.\nOn Windows register as service <https://github.com/winsw/winsw>.\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
