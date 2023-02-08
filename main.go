@@ -28,6 +28,8 @@ func main() {
 	flag.StringVar(&admin, "admin", "", "Discord Bot token.")
 	flag.Parse()
 
+	var replylock sync.Mutex
+
 	var guilds map[string]bool = make(map[string]bool)
 	for _, v := range strings.Split(guild, ",") {
 		guilds[v] = true
@@ -47,8 +49,21 @@ func main() {
 	}
 
 	dg.AddHandler(func(s *discordgo.Session, m *discordgo.MessageCreate) {
+		replylock.Lock()
+		defer replylock.Unlock()
+
 		fmt.Println(m.Message.Content, m.GuildID, guilds[m.GuildID])
 		if m.Author.ID == s.State.User.ID || !guilds[m.GuildID] {
+			return
+		}
+
+		if strings.HasPrefix(m.Content, "!reload") && admins[m.Author.ID] {
+			rs = rive.New(debug)
+			err = s.MessageReactionAdd(m.ChannelID, m.ID, "✅")
+			if err != nil {
+				log.Println(err)
+				return
+			}
 			return
 		}
 

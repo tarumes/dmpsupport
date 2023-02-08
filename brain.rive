@@ -157,7 +157,7 @@
 
 // RANDOM TOPIC
 + [*] connection error no connection could be made because the target machine actively refused it [*]
-- that means the target server machine refuses your connection (firewall), you have to allow incomming connections on the target machine
+- That means the target server machine refuses your connection (firewall), you have to allow incomming connections on the target machine
 
 + do (most|all) mods work with dmp
 - yes all mods work with DMP there is only one exception all mods that are time based like for example life support mods.
@@ -165,7 +165,7 @@
 + how (to|do i) install [mod|dmp]
 - via CKANor by hand\nhere is a example how it should look like\n```\n📂\sKerbal\sSpace\sProgram\n\s┗📁\sGameData\n\s\s\s┣📁\sDarkMultiPlayer\n\s\s\s┃\s┣📁\sButton\n\s\s\s┃\s┣📁\sPlugins\n\s\s\s┃\s┣📄\sgit-version.txt\n\s\s\s┃\s┣📄\sLICENCE.txt\n\s\s\s┃\s┗📄\sREADME.txt\n\s\s\s┗📁\sSquad\n```
 
-+ (what is|whats) cgnat
++ what is cgnat
 - Carrier Grade Network Translation.\nIt simplay means: You cant offer any services to others on the internet.\nIts your ISPs fault blame them.
 
 + do i need to port foward to host a server
@@ -174,5 +174,20 @@
 + can i host it private for my friends
 - yes
 
-+ if i have a (non steam|epic) version of the game am i able to play
++ if i have a (non steam|epic) version of the game am i able to play [multiplayer]
 - yes
+
++ my * cant connect
+- Did you setup port forwarding?\nDid you used the correct IP?\nmore here -> https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting
+
++ (@hello) [(i|we)] [need help] my * cant connect
+- Hello <@<id>>,\nDid you setup port forwarding?\nDid your <star3> used the correct IP?\nmore here -> https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting
+
++ [i|we] cant connect to [my] * server
+- Is port forwarding correct?\nIs the correct IP used to connect?\nMaybe more here -> https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting
+
++ i open port # [tcp and udp] but [i|he|she|it|me] cant connect
+- Do check your Port Forwardings are for TCP and UDP and if you used the correct IP, if yes can you open a commandline window and type\n`tracert -4 8.8.8.8` post it here and wait for reply.
+
++ is there a tutorial video how to (install|use) dmp
+- No <@<id>>, but a realy good text variant -> https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting\nBut the script for it is there. would you make it?
