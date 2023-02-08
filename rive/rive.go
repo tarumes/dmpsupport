@@ -3,7 +3,6 @@ package rive
 import (
 	"dmpsupport/rive/sessions"
 	"fmt"
-	"log"
 
 	"regexp"
 	"strings"
@@ -40,7 +39,7 @@ func New(debug bool) *Client {
 		Seed:           time.Now().UnixNano(), // Random number seed (default is == 0)
 		SessionManager: s,                     // Default in-memory session manager
 	})
-	r.SetUnicodePunctuation(``)
+
 	r.SetHandler("javascript", javascript.New(r))
 
 	if err := r.LoadFile("brain.rive"); err != nil {
@@ -60,6 +59,21 @@ func New(debug bool) *Client {
 
 func (c *Client) Close() error {
 	return c.s.Close()
+}
+
+func (c *Client) GetUnicodePunctuation() *regexp.Regexp {
+	return c.r.UnicodePunctuation
+}
+
+func (c *Client) LearnNew(in string) error {
+	c.lock.Lock()
+	defer c.lock.Unlock()
+
+	err := c.r.Stream(in)
+	if err != nil {
+		return err
+	}
+	return c.r.SortReplies()
 }
 
 func (c *Client) Reply(username, message string) (string, error) {
@@ -86,9 +100,8 @@ func (c *Client) Reply(username, message string) (string, error) {
 		var tmp string
 		for i := len(c.l[username]) - 1; i >= 0; i-- {
 			tmp = strings.TrimSpace(spaces.ReplaceAllString(fmt.Sprintf("%s %s", c.l[username][i].Content, tmp), " "))
-			fmt.Printf("|%s|\n", tmp)
 			if r, err := c.r.Reply(username, tmp); err == nil {
-				log.Println(tmp, r)
+				c.l[username] = make([]Message, 0)
 				return r, nil
 			}
 		}
