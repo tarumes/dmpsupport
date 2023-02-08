@@ -1,0 +1,36 @@
+! version = 2.0
+> begin
+    + request
+    - {ok}
+< begin
+
+! array hello = hello|hi|good\smorning|good\sevening
+
+> topic random
+    + [*] connection error no connection could be made because the target machine actively refused it [*]
+    - that means the target machine refuses your connection (firewall), you have to allow incomming connections on the target machine
+
+    + do (most|all) mods work with dmp
+    - yes all mods work with DMP there is only one exception all mods that are time based like for example life support mods.
+
+    + how to install [mod|dmp]
+    - here is a example how it should look like\n```\n📂\sKerbal\sSpace\sProgram\s┗📁\sGameData\s\s\s┣📁\sDarkMultiPlayer\s\s\s┃\s┣📁\sButton\s\s\s┃\s┣📁\sPlugins\s\s\s┃\s┣📄\sgit-version.txt\s\s\s┃\s┣📄\sLICENCE.txt\s\s\s┃\s┗📄\sREADME.txt\s\s\s┗📁\sSquad\n```
+
+    + (what is|whats) cgnat
+    - Carrier Grade Network Translation.\nIt simplay means: You cant offer any services to others on the internet.
+
+    + do i need to port foward to host a server
+    - yes or hamachi
+
+    + can i host it private for my friends
+    - yes
+
+    + if i have a (non steam|epic) version of the game am i able to play
+    - yes
+< topic
+
+> object getTimeDiff javascript
+	var d = new Date(parseInt(args[0]));
+	var now = new Date();
+	return (now.getFullYear() - d.getFullYear());
+< object
