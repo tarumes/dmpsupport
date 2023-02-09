@@ -5,12 +5,14 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"math/rand"
 	"os"
 	"os/signal"
 	"regexp"
 	"strings"
 	"sync"
 	"syscall"
+	"time"
 
 	"github.com/bwmarrin/discordgo"
 )
@@ -23,9 +25,11 @@ func main() {
 	var token string
 	flag.StringVar(&token, "token", "", "Discord Bot token.")
 	var guild string
-	flag.StringVar(&guild, "guild", "", "Discord Bot token.")
+	flag.StringVar(&guild, "guild", "", "Discord Guilds to listen.")
 	var admin string
-	flag.StringVar(&admin, "admin", "", "Discord Bot token.")
+	flag.StringVar(&admin, "admin", "", "Discord admins.")
+	var geo string
+	flag.StringVar(&geo, "geo", "", "token for geo api")
 	flag.Parse()
 
 	var replylock sync.Mutex
@@ -42,7 +46,7 @@ func main() {
 		log.Fatal("no bot token defined, token is required")
 	}
 
-	rs := rive.New(debug)
+	rs := rive.New(geo, debug)
 	dg, err := discordgo.New("Bot " + token)
 	if err != nil {
 		log.Fatal(err)
@@ -52,16 +56,15 @@ func main() {
 		replylock.Lock()
 		defer replylock.Unlock()
 
-		fmt.Println(m.Message.Content, m.GuildID, guilds[m.GuildID])
 		if m.Author.ID == s.State.User.ID || !guilds[m.GuildID] {
 			return
 		}
 
 		if strings.HasPrefix(m.Content, "!reload") && admins[m.Author.ID] {
-			rs = rive.New(debug)
+			rs = rive.New(geo, debug)
 			err = s.MessageReactionAdd(m.ChannelID, m.ID, "✅")
 			if err != nil {
-				log.Println(err)
+				log.Println("[ERR]", err)
 				return
 			}
 			return
@@ -71,7 +74,7 @@ func main() {
 			msg := strings.TrimSpace(strings.TrimPrefix(m.Content, "!learn"))
 			g, err := getRegexGroup(`\x60{1,3}(\n|)(?P<trigger>\+\s\b[a-zA-Z ]{1,})\s(?P<reply>\-\s.*)\x60{1,3}`, msg)
 			if err != nil {
-				log.Println(err)
+				log.Println("[ERR]", err)
 				return
 			}
 			new := fmt.Sprintf("\n%s\n%s\n",
@@ -80,29 +83,45 @@ func main() {
 			)
 			err = rs.LearnNew(new)
 			if err != nil {
-				log.Println(err)
+				log.Println("[ERR]", err)
 				return
 			}
 			err = writeBrain(new)
 			if err != nil {
-				log.Println(err)
+				log.Println("[ERR]", err)
 				return
 			}
 			err = s.MessageReactionAdd(m.ChannelID, m.ID, "✅")
 			if err != nil {
-				log.Println(err)
+				log.Println("[ERR]", err)
 				return
 			}
 			return
 		}
 
 		if reply, err := rs.Reply(m.Author.ID, m.Content); err != nil {
-			log.Println(err, m.Content)
+			log.Println("[ERR]", err, m.Content)
 		} else if reply != "" {
+
+			time.Sleep(time.Duration(
+				RandomNumber(10000, 60000),
+			) * time.Millisecond)
+
+			log.Println("[INFO]", reply)
+			defer s.ChannelTyping("")
+			for i := 0; i < len(strings.Split(reply, "\n")); i = i + 1 {
+				err = s.ChannelTyping(m.ChannelID)
+				if err != nil {
+					log.Printf("Couldn't start typing: %v", err)
+				}
+				time.Sleep(9433 * time.Millisecond)
+			}
+
 			if _, err := s.ChannelMessageSendReply(m.ChannelID, reply, m.Reference()); err != nil {
-				log.Println(err)
+				log.Println("[ERR]", err)
 			}
 		}
+
 	})
 
 	dg.Identify.Intents = discordgo.IntentsGuildMessages
@@ -168,4 +187,8 @@ func writeBrain(in string) error {
 	}
 
 	return nil
+}
+
+func RandomNumber(min, max int) int {
+	return rand.Intn(max-min) + min
 }

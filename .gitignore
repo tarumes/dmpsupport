@@ -4,3 +4,7 @@ sessions.db-wal
 logfile.log
 .vscode
 __debug_bin.exe
+geo.db
+geo.db-wal
+geo.db-shm
+dmpsupport

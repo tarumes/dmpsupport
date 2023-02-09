@@ -159,12 +159,26 @@
 > object getTimeDiff javascript
 	var d = new Date(parseInt(args[0]));
 	var now = new Date();
-	return (now.getFullYear() - d.getFullYear());
+	return `${(now.getFullYear() - d.getFullYear())}`;
 < object
 
 ////////////////////
 //  RANDOM TOPIC  //
 ////////////////////
+
+// fun stuff
++ \@1071810754623307926 are you a bot
+- Yes, <https://github.com/tarumes/dmpsupport>
+
++ is \@1042129535937814609 a bot
+- Yes, this is our latest invention: we have built a real human brain into a machine for this purpose.
+
++ distance between * and *
+* <call>gpsdistance <star1> <star2></call> != undefined => <call>gpsdistance <star1> <star2></call>km
+- one of your inputs may not exist
+
++ percent * of *
+- <call>percent <star1> <star2></call>
 
 // connection errors
 + can not join because the destination pc                                                                                                                                                                                                                                                                       denies access
@@ -204,19 +218,20 @@
 + how do i do router settings
 - Go to <https://portforward.com/> klick on "Router Guides" and select your brand from the list.\nDMP does need port 6702 TCP & UDP\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w>
 
-// general questions
-+ \@1071810754623307926 are you a bot
-- Yes, <https://github.com/tarumes/dmpsupport>
-
-+ is \@1042129535937814609 a bot
-- Yes, this is our latest invention: we have built a real human brain into a machine for this purpose.
-
+// hosting questions
 + how to host server
-- Tutorial here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w
+- Tutorial here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w>
 
-+ help me set up a server on a linux vps
++ (help me|how to) set up a server on a linux vps
 @ how to host server
 
++ can i host it private for my friends
+@ how to host server
+
++ (@hello) how (do you|to) make a sever
+- Here, -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w>
+
+// general questions
 + how to download the mod
 - Visit <https://spacedock.info/> or use CKAN <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#ckan>
 
@@ -229,11 +244,8 @@
 + what is cgnat
 - Carrier Grade Network Translation.\nIt simplay means: You cant offer any services to others on the internet.\nIts your ISPs fault blame them.\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
 
-+ can i host it private for my friends
-- yes\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
-
 + if i have a (non steam|epic) version of the game am i able to play [multiplayer]
-- yes\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
+- Yes it works with Steam, Epic, GoG, ...\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
 
 + [is there a] (tutorial video|video tutorial video) how to (install|use) dmp
 - No <@<id>>, but a realy good text variant -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w>\nBut the script for it is there. would you make it?
@@ -243,9 +255,6 @@
 
 + incompatible (protocol|version)
 - Your DMP (and / or KSP) version differs from the server version. Get the matching version.\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
-
-+ (@hello) how (do you|to) make a sever
-- Here, -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w>
 
 + how do you add mods to a dmp server
 - Tutorial here, -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w>
