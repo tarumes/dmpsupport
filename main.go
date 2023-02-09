@@ -102,12 +102,12 @@ func main() {
 		if reply, err := rs.Reply(m.Author.ID, m.Content); err != nil {
 			log.Println("[ERR]", err, m.Content)
 		} else if reply != "" {
+			log.Println("[INFO]", reply)
 
 			time.Sleep(time.Duration(
 				RandomNumber(10000, 60000),
 			) * time.Millisecond)
 
-			log.Println("[INFO]", reply)
 			defer s.ChannelTyping("")
 			for i := 0; i < len(strings.Split(reply, "\n")); i = i + 1 {
 				err = s.ChannelTyping(m.ChannelID)

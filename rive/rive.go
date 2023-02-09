@@ -21,7 +21,6 @@ type Client struct {
 	r       *rivescript.RiveScript
 	session *sessions.MemoryStore
 	debug   bool
-	log     map[string][]Message
 	geo     *geoapi.Client
 
 	lock sync.Mutex
@@ -99,7 +98,6 @@ func New(geotoken string, debug bool) *Client {
 		session: session,
 		debug:   debug,
 		geo:     geo,
-		log:     make(map[string][]Message),
 	}
 }
 
@@ -127,33 +125,5 @@ func (c *Client) Reply(username, message string) (string, error) {
 	c.lock.Lock()
 	defer c.lock.Unlock()
 
-	message = strings.TrimSpace(spaces.ReplaceAllString(message, " "))
-
-	c.log[username] = append(c.log[username], Message{
-		Content: message,
-		Time:    time.Now(),
-	})
-	c.log[username] = func(in []Message) []Message {
-		var reply []Message = make([]Message, 0)
-		for _, v := range in {
-			if time.Since(v.Time) < time.Second*30 {
-				reply = append(reply, v)
-			}
-		}
-		return reply
-	}(c.log[username])
-
-	if r, err := c.r.Reply(username, message); err != nil {
-		var tmp string
-		for i := len(c.log[username]) - 1; i >= 0; i-- {
-			tmp = strings.TrimSpace(spaces.ReplaceAllString(fmt.Sprintf("%s %s", c.log[username][i].Content, tmp), " "))
-			if r, err := c.r.Reply(username, tmp); err == nil {
-				c.log[username] = make([]Message, 0)
-				return r, nil
-			}
-		}
-		return "", fmt.Errorf("no trigger matched")
-	} else {
-		return r, nil
-	}
+	return c.r.Reply(username, strings.TrimSpace(spaces.ReplaceAllString(message, " ")))
 }
