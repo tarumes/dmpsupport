@@ -11,6 +11,7 @@ import (
 	"os"
 	"os/signal"
 	"strings"
+	"sync"
 	"syscall"
 	"time"
 
@@ -18,6 +19,16 @@ import (
 )
 
 // https://discord.com/oauth2/authorize?client_id=1071810754623307926&scope=bot&permissions=117824
+
+type Messages struct {
+	ID      string
+	Guild   string
+	Channel string
+	Author  string
+	Content string
+}
+
+var messages []Messages
 
 func main() {
 	var debug bool
@@ -50,15 +61,6 @@ func main() {
 		log.Fatal(err)
 	}
 
-	type Messages struct {
-		ID      string
-		Guild   string
-		Channel string
-		Author  string
-		Content string
-	}
-
-	var messages []Messages
 	go func() {
 		mux := http.NewServeMux()
 		mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
@@ -84,6 +86,7 @@ func main() {
 				r.ParseForm()
 				if r.FormValue("id") != "" && r.FormValue("guild") != "" && r.FormValue("channel") != "" && r.FormValue("content") != "" && r.FormValue("trigger") != "" {
 					rs.LearnNew(r.FormValue("trigger"), r.FormValue("content"))
+					messages = mmFilter(r.FormValue("id"))
 					go func() {
 						err = dg.ChannelTyping(r.FormValue("channel"))
 						if err != nil {
@@ -119,6 +122,40 @@ func main() {
 		log.Fatal(srv.ListenAndServe())
 	}()
 
+	dg.AddHandler(func(s *discordgo.Session, m *discordgo.MessageUpdate) {
+		if m.Author.ID == s.State.User.ID || !guilds[m.GuildID] || m.Content == "" {
+			return
+		}
+
+		messages = mmFilter(m.ID)
+
+		if reply, err := rs.Reply(m.Author.ID, m.Content); err != nil {
+			messages = mmAdd(Messages{
+				ID:      m.ID,
+				Guild:   m.GuildID,
+				Channel: m.ChannelID,
+				Author:  m.Author.Username,
+				Content: m.Content,
+			})
+			log.Println("[ERR]", err, m.Content)
+		} else if reply != "" {
+			log.Println("[INFO]", reply)
+
+			defer s.ChannelTyping("")
+			for i := 0; i < len(strings.Split(reply, "\n"))+int(RandomNumber(1, 6)); i = i + 1 {
+				err = s.ChannelTyping(m.ChannelID)
+				if err != nil {
+					log.Printf("Couldn't start typing: %v", err)
+				}
+				time.Sleep(9900 * time.Millisecond)
+			}
+
+			if _, err := s.ChannelMessageSendReply(m.ChannelID, reply, m.Reference()); err != nil {
+				log.Println("[ERR]", err)
+			}
+		}
+	})
+
 	dg.AddHandler(func(s *discordgo.Session, m *discordgo.MessageCreate) {
 		if m.Author.ID == s.State.User.ID || !guilds[m.GuildID] || m.Content == "" {
 			return
@@ -135,10 +172,7 @@ func main() {
 		}
 
 		if reply, err := rs.Reply(m.Author.ID, m.Content); err != nil {
-			if len(messages) > 100 {
-				messages = messages[1:]
-			}
-			messages = append(messages, Messages{
+			messages = mmAdd(Messages{
 				ID:      m.ID,
 				Guild:   m.GuildID,
 				Channel: m.ChannelID,
@@ -190,4 +224,34 @@ func main() {
 
 func RandomNumber(min, max int) int {
 	return rand.Intn(max-min) + min
+}
+
+// webui messages
+var mmlock sync.Mutex
+
+func mmAdd(m Messages) []Messages {
+	mmlock.Lock()
+	defer mmlock.Unlock()
+
+	mm := messages
+
+	if len(mm) > 100 {
+		mm = mm[1:]
+	}
+
+	mm = append(mm, m)
+	return mm
+}
+
+func mmFilter(id string) []Messages {
+	mmlock.Lock()
+	defer mmlock.Unlock()
+
+	var tmp []Messages = make([]Messages, 0)
+	for _, v := range messages {
+		if v.ID != id {
+			tmp = append(tmp, v)
+		}
+	}
+	return tmp
 }

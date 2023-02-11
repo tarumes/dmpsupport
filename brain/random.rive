@@ -15,7 +15,7 @@
 // NO FUN STUFF
 
 // connection errors
-+ can not join because the destination pc                                                                                                                                                                                                                                                                       denies access
++ can not join because the destination pc denies access
 - That means the target server machine refuses your connection (firewall), you have to allow incomming connections on the target machine
 
 + [*] connection error no connection could be made because the target machine actively refused it [*]
