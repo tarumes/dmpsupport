@@ -126,6 +126,15 @@ func main() {
 		if m.Author.ID == s.State.User.ID || !guilds[m.GuildID] || m.Content == "" {
 			return
 		}
+		
+		t, err := discordgo.SnowflakeTimestamp(m.ID)
+		if err != nil {
+			log.Println(err)
+			return
+		}
+		if time.Since(t) > 5*time.Minute {
+			return
+		}
 
 		messages = mmFilter(m.ID)
 
