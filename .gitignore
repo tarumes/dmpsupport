@@ -8,3 +8,9 @@ geo.db
 geo.db-wal
 geo.db-shm
 dmpsupport
+.gitignore
+rivescript.db-shm
+rivescript.db-wal
+rivescript.db
+Makefile
+messages.db

@@ -1,10 +1,12 @@
 package rive
 
 import (
+	"database/sql"
 	"dmpsupport/rive/geoapi"
 	geohelpers "dmpsupport/rive/geoapi/helpers"
 	"dmpsupport/rive/sessions"
 	"fmt"
+	"log"
 	"math"
 	"strconv"
 
@@ -20,8 +22,11 @@ import (
 type Client struct {
 	r       *rivescript.RiveScript
 	session *sessions.MemoryStore
-	debug   bool
-	geo     *geoapi.Client
+
+	db *sql.DB
+
+	debug bool
+	geo   *geoapi.Client
 
 	lock sync.Mutex
 }
@@ -36,6 +41,23 @@ var spaces *regexp.Regexp = regexp.MustCompile(`\s{1,}`)
 func New(geotoken string, debug bool) *Client {
 	var session *sessions.MemoryStore = sessions.New("sessions.db")
 	geo := geoapi.New(geotoken)
+
+	db, err := sql.Open("sqlite", "rivescript.db")
+	if err != nil {
+		log.Fatal(err)
+	}
+	_, err = db.Exec(`
+	PRAGMA journal_mode = 'WAL';
+	BEGIN TRANSACTION;
+	CREATE TABLE IF NOT EXISTS "learned" (
+		"trigger"	TEXT NOT NULL,
+		"reply"	TEXT NOT NULL
+	);
+	COMMIT;`)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	r := rivescript.New(&rivescript.Config{
 		Debug:          debug,                 // Debug mode, off by default
 		Strict:         true,                  // Strict syntax checking
@@ -44,16 +66,53 @@ func New(geotoken string, debug bool) *Client {
 		Seed:           time.Now().UnixNano(), // Random number seed (default is == 0)
 		SessionManager: session,               // Default in-memory session manager
 	})
+	r.SetUnicodePunctuation(`[.,!?;:"]`)
 	r.SetHandler("javascript", javascript.New(r))
-	if err := r.LoadFile("brain.rive"); err != nil {
+	if err := r.LoadDirectory("brain"); err != nil {
 		return nil
 	}
+
+	var l []string = make([]string, 0)
+	rows, err := db.Query(`SELECT DISTINCT trigger, reply FROM learned;`)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer rows.Close()
+	var trigger, reply string
+	for rows.Next() {
+		if err := rows.Scan(&trigger, &reply); err == nil {
+			l = append(l, fmt.Sprintf("+ %s\n- %s\n", trigger, reply))
+		}
+	}
+	err = r.Stream(strings.Join(l, "\n"))
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	if err := r.SortReplies(); err != nil {
 		return nil
 	}
 
 	// Subroutines
 	{
+		r.SetSubroutine("since", func(rs *rivescript.RiveScript, s []string) string {
+			t1, err := time.Parse(time.RFC3339, s[0])
+			if err != nil {
+				fmt.Println(err)
+				return "{{ERROR}}"
+			}
+			t2, err := time.Parse(time.RFC3339, s[1])
+			if err != nil {
+				fmt.Println(err)
+				return "{{ERROR}}"
+			}
+
+			if t1.Before(t2) {
+				return fmt.Sprint(t1.Sub(t2).Seconds())
+			} else {
+				return fmt.Sprint(t2.Sub(t1))
+			}
+		})
 		r.SetSubroutine("gpsdistance", func(rs *rivescript.RiveScript, s []string) string {
 			pos1, err := geo.GetLocationCache(s[0])
 			if err != nil {
@@ -96,6 +155,7 @@ func New(geotoken string, debug bool) *Client {
 	return &Client{
 		r:       r,
 		session: session,
+		db:      db,
 		debug:   debug,
 		geo:     geo,
 	}
@@ -110,11 +170,23 @@ func (c *Client) GetUnicodePunctuation() *regexp.Regexp {
 	return c.r.UnicodePunctuation
 }
 
-func (c *Client) LearnNew(in string) error {
+func (c *Client) LearnNew(trigger string, reply string) error {
 	c.lock.Lock()
 	defer c.lock.Unlock()
 
-	err := c.r.Stream(in)
+	trigger = strings.TrimSpace(spaces.ReplaceAllString(c.r.UnicodePunctuation.ReplaceAllString(strings.ToLower(trigger), ""), " "))
+
+	stmt, err := c.db.Prepare(`INSERT INTO learned (trigger, reply)VALUES(?,?);`)
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+	_, err = stmt.Exec(trigger, reply)
+	if err != nil {
+		return err
+	}
+
+	err = c.r.Stream(fmt.Sprintf("+ %s\n- %s\n\n", trigger, reply))
 	if err != nil {
 		return err
 	}

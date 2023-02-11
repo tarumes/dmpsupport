@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/w3.css">
+</head>
+<body>
+    <div class="w3-container">
+        {{range .}}
+        <div class="w3-card-4">
+
+            <header class="w3-container w3-blue">
+                <h1>{{.Author}}</h1>
+            </header>
+            
+            <div class="w3-container">
+                <p>{{.Content}}</p>
+            </div>
+            
+            <footer class="w3-container w3-row-padding">
+                <form action="/post" method="post">
+                    <input type="hidden" id="id" name="id" value="{{.ID}}">
+                    <input type="hidden" id="guild" name="guild" value="{{.Guild}}">
+                    <input type="hidden" id="channel" name="channel" value="{{.Channel}}">
+                    <input type="hidden" id="trigger" name="trigger" value="{{.Content}}">
+                    <div class="w3-threequarter">
+                        <input id="content" name="content" class="w3-input w3-border" type="text" placeholder="Reply">
+                    </div>
+                    <div class="w3-quarter">
+                        <input type="submit" class="w3-btn w3-blue" value="Submit">
+                    </div>
+                </form>
+            </footer>
+            <br>
+        </div>
+        {{end}}
+    </div>
+</body>
+</html>
