@@ -88,7 +88,6 @@ func New(geotoken string, debug bool) *Client {
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	if err := r.SortReplies(); err != nil {
 		return nil
 	}
@@ -197,5 +196,11 @@ func (c *Client) Reply(username, message string) (string, error) {
 	c.lock.Lock()
 	defer c.lock.Unlock()
 
-	return c.r.Reply(username, strings.TrimSpace(spaces.ReplaceAllString(message, " ")))
+	if r, err := c.r.Reply(username, strings.TrimSpace(spaces.ReplaceAllString(message, " "))); err != nil {
+		return "", err
+	} else if r == "" {
+		return "", fmt.Errorf("empty reply")
+	} else {
+		return r, nil
+	}
 }

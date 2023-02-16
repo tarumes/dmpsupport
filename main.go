@@ -1,6 +1,7 @@
 package main
 
 import (
+	"dmpsupport/helpers"
 	"dmpsupport/rive"
 	"flag"
 	"fmt"
@@ -71,7 +72,9 @@ func main() {
 
 			switch r.Method {
 			case http.MethodGet:
-				templ.ExecuteTemplate(w, "index.html", messages)
+				m := messages
+				m = helpers.ReverseSlice(m)
+				templ.ExecuteTemplate(w, "index.html", m)
 			default:
 				http.Error(
 					w,
@@ -123,10 +126,11 @@ func main() {
 	}()
 
 	dg.AddHandler(func(s *discordgo.Session, m *discordgo.MessageUpdate) {
-		if m.Author.ID == s.State.User.ID || !guilds[m.GuildID] || m.Content == "" {
+		log.Println()
+		if m.Author == nil || s.State.User == nil || m.Author.ID == s.State.User.ID || !guilds[m.GuildID] || m.Content == "" {
 			return
 		}
-		
+
 		t, err := discordgo.SnowflakeTimestamp(m.ID)
 		if err != nil {
 			log.Println(err)
