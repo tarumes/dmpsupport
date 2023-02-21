@@ -7,7 +7,8 @@
 ////////////////////
 //     Arrays     //
 ////////////////////
-! array hello = hello|hi|good\smorning|good\sevening
+! array hello        = hello|hi|good\smorning|good\sevening|hey
+! array targetperson = i|me|we|you|they
 
 ////////////////////
 //  Substitutions //
@@ -76,10 +77,6 @@
 ! sub wat       = what
 ! sub wats      = what is
 ! sub ohh       = oh
-! sub becuse    = because
-! sub becasue   = because
-! sub becuase   = because
-! sub practise  = practice
 ! sub its a     = it is a
 ! sub fav       = favorite
 ! sub fave      = favorite
@@ -163,12 +160,8 @@
 < object
 
 > object dopercent javascript
-	function repeat(str, n) {
-		r = ""
-		for (i = 0; i < n; i++) {
-			r += str        
-		}
-		return r
+	var repeat = function (str, num) {
+    	return new Array(num + 1).join(str);
 	}
 	
 < object

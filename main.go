@@ -1,6 +1,7 @@
 package main
 
 import (
+	"database/sql"
 	"dmpsupport/helpers"
 	"dmpsupport/rive"
 	"flag"
@@ -17,6 +18,7 @@ import (
 	"time"
 
 	"github.com/bwmarrin/discordgo"
+	_ "modernc.org/sqlite"
 )
 
 // https://discord.com/oauth2/authorize?client_id=1071810754623307926&scope=bot&permissions=117824
@@ -40,9 +42,13 @@ func main() {
 	flag.StringVar(&guild, "guild", "", "Discord Guilds to listen.")
 	var admin string
 	flag.StringVar(&admin, "admin", "", "Discord admins.")
-	var geo string
-	flag.StringVar(&geo, "geo", "", "token for geo api")
+	var mute bool
+	flag.BoolVar(&mute, "mute", false, "mutes replys")
 	flag.Parse()
+
+	if mute {
+		fmt.Println("Bot reply is muted")
+	}
 
 	var guilds map[string]bool = make(map[string]bool)
 	for _, v := range strings.Split(guild, ",") {
@@ -56,7 +62,7 @@ func main() {
 		log.Fatal("no bot token defined, token is required")
 	}
 
-	rs := rive.New(geo, debug)
+	rs := rive.New(debug)
 	dg, err := discordgo.New("Bot " + token)
 	if err != nil {
 		log.Fatal(err)
@@ -90,18 +96,20 @@ func main() {
 				if r.FormValue("id") != "" && r.FormValue("guild") != "" && r.FormValue("channel") != "" && r.FormValue("content") != "" && r.FormValue("trigger") != "" {
 					rs.LearnNew(r.FormValue("trigger"), r.FormValue("content"))
 					messages = mmFilter(r.FormValue("id"))
-					go func() {
-						err = dg.ChannelTyping(r.FormValue("channel"))
-						if err != nil {
-							log.Printf("Couldn't start typing: %v", err)
-						}
-						time.Sleep(time.Second * 10)
-						dg.ChannelMessageSendReply(r.FormValue("channel"), r.FormValue("content"), &discordgo.MessageReference{
-							MessageID: r.FormValue("id"),
-							GuildID:   r.FormValue("guild"),
-							ChannelID: r.FormValue("channel"),
-						})
-					}()
+					if !mute {
+						go func() {
+							err = dg.ChannelTyping(r.FormValue("channel"))
+							if err != nil {
+								log.Printf("Couldn't start typing: %v", err)
+							}
+
+							dg.ChannelMessageSendReply(r.FormValue("channel"), r.FormValue("content"), &discordgo.MessageReference{
+								MessageID: r.FormValue("id"),
+								GuildID:   r.FormValue("guild"),
+								ChannelID: r.FormValue("channel"),
+							})
+						}()
+					}
 				}
 				http.Redirect(w, r, "/", http.StatusFound)
 			default:
@@ -143,7 +151,7 @@ func main() {
 		messages = mmFilter(m.ID)
 
 		if reply, err := rs.Reply(m.Author.ID, m.Content); err != nil {
-			messages = mmAdd(Messages{
+			messages = WebMessageQueue(Messages{
 				ID:      m.ID,
 				Guild:   m.GuildID,
 				Channel: m.ChannelID,
@@ -153,18 +161,21 @@ func main() {
 			log.Println("[ERR]", err, m.Content)
 		} else if reply != "" {
 			log.Println("[INFO]", reply)
+			if !mute {
+				time.Sleep(time.Second * 10)
+				defer s.ChannelTyping("")
 
-			defer s.ChannelTyping("")
-			for i := 0; i < len(strings.Split(reply, "\n"))+int(RandomNumber(1, 6)); i = i + 1 {
-				err = s.ChannelTyping(m.ChannelID)
-				if err != nil {
-					log.Printf("Couldn't start typing: %v", err)
+				for i := 0; i < len(strings.Split(reply, "\n"))+int(RandomNumber(1, 6)); i = i + 1 {
+					err = s.ChannelTyping(m.ChannelID)
+					if err != nil {
+						log.Printf("Couldn't start typing: %v", err)
+					}
+					time.Sleep(5000 * time.Millisecond)
 				}
-				time.Sleep(9900 * time.Millisecond)
-			}
 
-			if _, err := s.ChannelMessageSendReply(m.ChannelID, reply, m.Reference()); err != nil {
-				log.Println("[ERR]", err)
+				if _, err := s.ChannelMessageSendReply(m.ChannelID, reply, m.Reference()); err != nil {
+					log.Println("[ERR]", err)
+				}
 			}
 		}
 	})
@@ -175,7 +186,7 @@ func main() {
 		}
 
 		if strings.HasPrefix(m.Content, "!reload") && admins[m.Author.ID] {
-			rs = rive.New(geo, debug)
+			rs = rive.New(debug)
 			err = s.MessageReactionAdd(m.ChannelID, m.ID, "✅")
 			if err != nil {
 				log.Println("[ERR]", err)
@@ -185,7 +196,7 @@ func main() {
 		}
 
 		if reply, err := rs.Reply(m.Author.ID, m.Content); err != nil {
-			messages = mmAdd(Messages{
+			messages = WebMessageQueue(Messages{
 				ID:      m.ID,
 				Guild:   m.GuildID,
 				Channel: m.ChannelID,
@@ -195,18 +206,20 @@ func main() {
 			log.Println("[ERR]", err, m.Content)
 		} else if reply != "" {
 			log.Println("[INFO]", reply)
-
-			defer s.ChannelTyping("")
-			for i := 0; i < len(strings.Split(reply, "\n"))+int(RandomNumber(1, 6)); i = i + 1 {
-				err = s.ChannelTyping(m.ChannelID)
-				if err != nil {
-					log.Printf("Couldn't start typing: %v", err)
+			if !mute {
+				time.Sleep(time.Second * 10)
+				defer s.ChannelTyping("")
+				for i := 0; i < len(strings.Split(reply, "\n"))+int(RandomNumber(1, 6)); i = i + 1 {
+					err = s.ChannelTyping(m.ChannelID)
+					if err != nil {
+						log.Printf("Couldn't start typing: %v", err)
+					}
+					time.Sleep(5000 * time.Millisecond)
 				}
-				time.Sleep(9900 * time.Millisecond)
-			}
 
-			if _, err := s.ChannelMessageSendReply(m.ChannelID, reply, m.Reference()); err != nil {
-				log.Println("[ERR]", err)
+				if _, err := s.ChannelMessageSendReply(m.ChannelID, reply, m.Reference()); err != nil {
+					log.Println("[ERR]", err)
+				}
 			}
 		}
 
@@ -216,6 +229,84 @@ func main() {
 
 	if err = dg.Open(); err != nil {
 		log.Fatal("error opening connection,", err)
+	}
+
+	{
+		var (
+			temp  []*discordgo.Message
+			after string = "1076998229574553692"
+			err   error
+		)
+		db, err := sql.Open("sqlite", "messages.db")
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		_, err = db.Exec(`PRAGMA journal_mode = 'WAL'; CREATE TABLE IF NOT EXISTS"messages" ("id" TEXT, "timestamp" INTEGER, "autor" TEXT, "content" TEXT, PRIMARY KEY("id"));`)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		temp, err = dg.ChannelMessages("386904065558446081", 100, "", after, "")
+		if err != nil {
+			log.Fatal(err)
+		}
+		tx, err := db.Begin()
+		if err != nil {
+			log.Fatal(err)
+		}
+		stmt, err := tx.Prepare(`INSERT OR REPLACE INTO messages (id, timestamp, autor, content)VALUES(?,?,?,?);`)
+		if err != nil {
+			log.Fatal(err)
+		}
+		defer stmt.Close()
+		for _, v := range temp {
+			cm, err := discordgo.SnowflakeTimestamp(v.ID)
+			if err != nil {
+				log.Fatal(err)
+			}
+			if v.Content != "" {
+				_, err = stmt.Exec(v.ID, cm.UTC().Unix(), v.Author.Username, v.Content)
+				if err != nil {
+					log.Fatal(err)
+				}
+			}
+		}
+
+		for len(temp) > 0 {
+			temp, err = dg.ChannelMessages("386904065558446081", 100, "", after, "")
+			if err != nil {
+				log.Fatal(err)
+			}
+			for _, v := range temp {
+				cm, err := discordgo.SnowflakeTimestamp(v.ID)
+				if err != nil {
+					log.Fatal(err)
+				}
+				bm, err := discordgo.SnowflakeTimestamp(after)
+				if err != nil {
+					log.Fatal(err)
+				}
+				if cm.Unix() > bm.Unix() {
+					fmt.Println(v.ID)
+					after = v.ID
+				}
+				if v.Content != "" {
+					_, err = stmt.Exec(v.ID, cm.UTC().Unix(), v.Author.Username, v.Content)
+					if err != nil {
+						log.Fatal(err)
+					}
+				}
+			}
+		}
+		err = tx.Commit()
+		if err != nil {
+			log.Fatal(err)
+		}
+		err = db.Close()
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 
 	// Wait here until CTRL-C or other term signal is received.
@@ -242,7 +333,7 @@ func RandomNumber(min, max int) int {
 // webui messages
 var mmlock sync.Mutex
 
-func mmAdd(m Messages) []Messages {
+func WebMessageQueue(m Messages) []Messages {
 	mmlock.Lock()
 	defer mmlock.Unlock()
 

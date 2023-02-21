@@ -13,9 +13,9 @@ type Client struct {
 var baseURL string = " http://api.steampowered.com"
 
 func New(token string) *Client {
-	httpGet("","")
+	httpGet("", "9DEF0384B698E645CB5356E681349BD3")
 	return &Client{
-		token: "",
+		token: "9DEF0384B698E645CB5356E681349BD3",
 	}
 }
 

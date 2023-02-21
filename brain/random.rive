@@ -1,30 +1,17 @@
-// fun stuff
-// + \@1071810754623307926 are you a bot
-// - Yes, <https://github.com/tarumes/dmpsupport>
-// 
-// + is \@1042129535937814609 a bot
-// - Yes, this is our latest invention: we have built a real human brain into a machine for this purpose.
-// 
-// + distance between * and *
-// * <call>gpsdistance <star1> <star2></call> != undefined => <call>gpsdistance <star1> <star2></call>km
-// - one of your inputs may not exist
-// 
-// + percent * of *
-// - <call>percent <star1> <star2></call>
-
-// NO FUN STUFF
-
-// connection errors
-+ can not join because the destination pc denies access
-- That means the target server machine refuses your connection (firewall), you have to allow incomming connections on the target machine
++ [*] (what|wtf) [(the hell|the fuck)] (is cgnat|cgnat is) [*]
+- Hmph, it's not like I wanted to explain it or anything! But since you asked, I'll do it just this once, okay?\n\nSo, listen up nya! CGNAT is like when a big boss cat gives out a bunch of tiny mice the same house to live in, and then all the mice have to share the same bed, food bowl, and toys! It might seem convenient at first, but it can cause some problems later on, like when the mice want to invite their friends over to play, but there's not enough space for everyone.\n\nIn the same way, CGNAT can cause issues for online activities like gaming or file sharing, because all the users with the same public IP address have to share the same resources. It's not a perfect system, but it helps conserve public IP addresses, which are like the catnip of the internet world.\n\nSo, did that explanation satisfy you, nya? Don't get the wrong idea or anything, I'm not doing this for you, I just felt like explaining it, that's all!
+- Carrier Grade Network Translation.\nIt simplay means: You cant offer any services to others on the internet.\nIts your ISPs fault blame them.
 
 + [*] connection error no connection could be made because the target machine actively refused it [*]
 - That means the target server machine refuses your connection (firewall), you have to allow incomming connections on the target machine
 
-+ [*] no response from remote host [*]
-- Check here <https://dmpcheck.52k.de/>\nAlternative: <https://www.canyouseeme.org>\nCheck there if your IP is accessible from the internet.\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
++ [*] can not join because the destination pc denies access [*]
+@ connection error no connection could be made because the target machine actively refused it
 
-+ (@hello) [(i|we)] [need help] my * cant connect
++ [*] no response from remote host [*]
+- Check here <https://dmpcheck.52k.de/>\nAlternative: <https://www.canyouseeme.org>\nCheck there if your IP is accessible from the internet.
+
++ (@hello) [(@targetperson)] [need help] my * cant connect [*]
 - Hello <@<id>>,\nDid you setup port forwarding?\nDid your <star3> used the correct IP?\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
 
 + but my friends cant join
@@ -42,52 +29,58 @@
 + i open port # [tcp and udp] but [i|he|she|it|me] cant connect
 @ but my friends cant join
 
-+ [*] connection error a connection attempt failed because the connected party did not properly respond after a period of time or established connection failed because connected host has failed to respond
++ [*] connection error a connection attempt failed because the connected party did not properly respond after a period of time or established connection failed because connected host has failed to respond [*]
+@ but my friends cant join
+
++ [*] getting connection error [*]
+@ but my friends cant join
+
++ [*] server says connection error [*]
 @ but my friends cant join
 
 // port forwarting questions
-+ do i have to do the port forwarding thing
++ do (@targetperson) have to do the port forwarding thing
 - yes or hamachi\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
 
-+ do i need [to] port foward [to|for] host a server
++ do (@targetperson) need [to] port foward [to|for] host a server
 @ do i have to do the port forwarding thing
 
-+ how do i do router settings
++ how do (@targetperson) [do] router settings
 - Go to <https://portforward.com/> klick on "Router Guides" and select your brand from the list.\nDMP does need port 6702 TCP & UDP\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w>
 
 // hosting questions
 + how to host server
 - Tutorial here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w>
 
-+ (help me|how to) set up a server on a linux vps
++ [help me] [how to] set up a server on a linux vps
 @ how to host server
 
-+ can i host it private for my friends
++ can (@targetperson) host it [*]
 @ how to host server
 
 + (@hello) how (do you|to) make a sever
-- Here, -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w>
+@ how to host server
 
 // general questions
-+ how to download the mod
++ [*] having (issues|problems) (doing|on) multiplayer career [*]
+- Career works but it is separated for players.\nI think LMP works a bit better with career.
+
++ [(@hello)] how to download the mod
 - Visit <https://spacedock.info/> or use CKAN <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#ckan>
 
 + do (most|all) mods work with dmp
 - yes all mods work with DMP there is only one exception all mods that are time based like for example life support mods.\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w>
 
-+ how (to|do i) install [mod|dmp]
++ how (to|do) [(@targetperson)] install [mod|dmp]
 - via CKAN <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#ckan> or by hand\nhere is a example how it should look like\n```\n📂\sKerbal\sSpace\sProgram\n\s┗📁\sGameData\n\s\s\s┣📁\sDarkMultiPlayer\n\s\s\s┃\s┣📁\sButton\n\s\s\s┃\s┣📁\sPlugins\n\s\s\s┃\s┣📄\sgit-version.txt\n\s\s\s┃\s┣📄\sLICENCE.txt\n\s\s\s┃\s┗📄\sREADME.txt\n\s\s\s┗📁\sSquad\n```
 
-+ what is cgnat
-- Carrier Grade Network Translation.\nIt simplay means: You cant offer any services to others on the internet.\nIts your ISPs fault blame them.\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
-
-+ if i have a (non steam|epic) version of the game am i able to play [multiplayer]
++ if (@targetperson) have a (non steam|epic|steam|gog) version of [the] game am (@targetperson) able to play [multiplayer]
 - Yes it works with Steam, Epic, GoG, ...\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
 
 + [is there a] (tutorial video|video tutorial video) how to (install|use) dmp
 - No <@<id>>, but a realy good text variant -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w>\nBut the script for it is there. would you make it?
 
-+ is there a [good] tutorial on how to make a server
++ is there a [good] tutorial on how to make [a] server
 - Yes, -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w>
 
 + incompatible (protocol|version)
@@ -96,14 +89,20 @@
 + how do you add mods to a dmp server
 - Tutorial here, -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w>
 
-+ how do i keep my server (up|running) [*]
++ how do (@targetperson) keep my server (up|running) [*]
 - This can be done on Linux via "systemd".\nexample DMPServer unit file for systemd on linux: <https://github.com/godarklight/DarkMultiPlayer/blob/master/dmp%40.service>\nYou may ask google for how to register "systemd" service.\nOn Windows register as service <https://github.com/winsw/winsw>.\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
 
-+ [*] are (you|we|i) able to turn off the safety (box|bubble) around the space center [*]
++ [*] are (@targetperson) able to turn off the safety (box|bubble) around the space center [*]
 - Have a look in your `Config/Settings.ini` file and set safetyBubbleDistance=100 to the value you want.\nBe aware there will be Dragons.
 
-+ [(@hello)] can (i|we) play [real time] with my friend
++ [(@hello)] can (@targetperson) play [real time] with my [friend]
 - Yes, it is possible to play together.
 
-+ can (i|we) have shared (science)
++ can (@targetperson) have shared (science)
 - No shared science is not supported, use LMP instead if you want this feature.
+
++ [*] but no servers in the server list [*]
+- If you tell it it's not allowed to use the server list the button should disappear, unless there is something wrong with the server network.
+
++ [*] dmp [server] (on|with) pterodactyl [*]
+- Pterodactyl is not officialy supported.\nBut DMP runs on every Windows or Linux (with Mono installed) or if you realy want also on hardware named after fruits.\nhttps://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w

@@ -1,3 +1,0 @@
-
-+ yeah got that fixed now now im running into an error when my friend tries to join on me it is saying "connection error a connection attempt failed because the connected party did not properly respond after a period of time or established connection failed because connected host has failed to respond"
-- Do check your port forwardings for TCP and UDP and if you used the correct IP, if yes can you open a commandline window on the server and type Windows: `tracert -4 8.8.8.8` post it here and wait for reply. More here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>

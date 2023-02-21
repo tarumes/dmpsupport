@@ -93,7 +93,11 @@ func (s *MemoryStore) Init(username string) *sessions.UserData {
 		func() {
 			s.lock.Lock()
 			defer s.lock.Unlock()
-			stmt, err := s.db.Prepare(`INSERT OR IGNORE INTO users (username, last_match) VALUES (?,"");`)
+			tx, err := s.db.Begin()
+			if err != nil {
+				log.Fatal(err)
+			}
+			stmt, err := tx.Prepare(`INSERT OR IGNORE INTO users (username, last_match) VALUES (?,"");`)
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -101,6 +105,10 @@ func (s *MemoryStore) Init(username string) *sessions.UserData {
 			_, err = stmt.Exec(
 				username,
 			)
+			if err != nil {
+				log.Fatal(err)
+			}
+			err = tx.Commit()
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -148,13 +156,20 @@ func (s *MemoryStore) Set(username string, vars map[string]string) {
 func (s *MemoryStore) AddHistory(username, input, reply string) {
 	s.lock.Lock()
 	defer s.lock.Unlock()
-
-	stmt, err := s.db.Prepare(`INSERT INTO history (user_id, input,reply)VALUES((SELECT id FROM users WHERE username = ?),?,?);`)
+	tx, err := s.db.Begin()
+	if err != nil {
+		log.Fatal(err)
+	}
+	stmt, err := tx.Prepare(`INSERT INTO history (user_id, input,reply)VALUES((SELECT id FROM users WHERE username = ?),?,?);`)
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer stmt.Close()
 	_, err = stmt.Exec(username, input, reply)
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = tx.Commit()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -164,13 +179,20 @@ func (s *MemoryStore) AddHistory(username, input, reply string) {
 func (s *MemoryStore) SetLastMatch(username, trigger string) {
 	s.lock.Lock()
 	defer s.lock.Unlock()
-
-	stmt, err := s.db.Prepare(`UPDATE users SET last_match = ? WHERE username = ?;`)
+	tx, err := s.db.Begin()
+	if err != nil {
+		log.Fatal(err)
+	}
+	stmt, err := tx.Prepare(`UPDATE users SET last_match = ? WHERE username = ?;`)
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer stmt.Close()
 	_, err = stmt.Exec(trigger, username)
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = tx.Commit()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -301,22 +323,36 @@ func (s *MemoryStore) GetHistory(username string) (*sessions.History, error) {
 func (s *MemoryStore) Clear(username string) {
 	s.lock.Lock()
 	defer s.lock.Unlock()
+	tx, err := s.db.Begin()
+	if err != nil {
+		log.Fatal(err)
+	}
+	tx.Exec(`DELETE FROM user_variables WHERE user_id = (SELECT id FROM users WHERE username = ?);`, username)
+	tx.Exec(`DELETE FROM history WHERE user_id = (SELECT id FROM users WHERE username = ?);`, username)
 
-	s.db.Exec(`DELETE FROM user_variables WHERE user_id = (SELECT id FROM users WHERE username = ?);`, username)
-	s.db.Exec(`DELETE FROM history WHERE user_id = (SELECT id FROM users WHERE username = ?);`, username)
-
-	s.db.Exec(`DELETE FROM users WHERE username = ?;`, username)
+	tx.Exec(`DELETE FROM users WHERE username = ?;`, username)
+	err = tx.Commit()
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 // ClearAll resets all user data for all users.
 func (s *MemoryStore) ClearAll() {
 	s.lock.Lock()
 	defer s.lock.Unlock()
-
-	s.db.Exec(`DELETE FROM user_variables;`)
-	s.db.Exec(`DELETE FROM history;`)
+	tx, err := s.db.Begin()
+	if err != nil {
+		log.Fatal(err)
+	}
+	tx.Exec(`DELETE FROM user_variables;`)
+	tx.Exec(`DELETE FROM history;`)
 
 	s.db.Exec(`DELETE FROM users;`)
+	err = tx.Commit()
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 // Freeze makes a snapshot of user variables.

@@ -16,7 +16,8 @@ import (
 	"time"
 
 	"github.com/aichaos/rivescript-go"
-	"github.com/aichaos/rivescript-go/lang/javascript"
+	// "github.com/aichaos/rivescript-go/lang/javascript"
+	"dmpsupport/rive/handlers/javascript"
 )
 
 type Client struct {
@@ -38,9 +39,9 @@ type Message struct {
 
 var spaces *regexp.Regexp = regexp.MustCompile(`\s{1,}`)
 
-func New(geotoken string, debug bool) *Client {
+func New(debug bool) *Client {
 	var session *sessions.MemoryStore = sessions.New("sessions.db")
-	geo := geoapi.New(geotoken)
+	geo := geoapi.New()
 
 	db, err := sql.Open("sqlite", "rivescript.db")
 	if err != nil {
@@ -113,11 +114,11 @@ func New(geotoken string, debug bool) *Client {
 			}
 		})
 		r.SetSubroutine("gpsdistance", func(rs *rivescript.RiveScript, s []string) string {
-			pos1, err := geo.GetLocationCache(s[0])
+			pos1, err := geo.GetLocation(s[0])
 			if err != nil {
 				return "undefined" // fmt.Sprintf("[ERROR] %s %s ", err.Error(), strings.Join(s, ","))
 			}
-			pos2, err := geo.GetLocationCache(s[1])
+			pos2, err := geo.GetLocation(s[1])
 			if err != nil {
 				return "undefined" //fmt.Sprintf("[ERROR] %s %s ", err.Error(), strings.Join(s, ","))
 			}
@@ -195,9 +196,21 @@ func (c *Client) LearnNew(trigger string, reply string) error {
 func (c *Client) Reply(username, message string) (string, error) {
 	c.lock.Lock()
 	defer c.lock.Unlock()
+	msg := strings.TrimSpace(spaces.ReplaceAllString(message, " "))
 
-	if r, err := c.r.Reply(username, strings.TrimSpace(spaces.ReplaceAllString(message, " "))); err != nil {
-		return "", err
+	var pf string = c.r.UnicodePunctuation.String()
+	c.r.SetUnicodePunctuation(``)
+	defer c.r.SetUnicodePunctuation(pf)
+
+	if r, err := c.r.Reply(username, msg); err != nil {
+		c.r.SetUnicodePunctuation(pf)
+		if r2, err := c.r.Reply(username, msg); err != nil {
+			return "", err
+		} else if r2 == "" {
+			return "", fmt.Errorf("empty reply")
+		} else {
+			return r2, nil
+		}
 	} else if r == "" {
 		return "", fmt.Errorf("empty reply")
 	} else {
