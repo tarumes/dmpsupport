@@ -1,20 +1,24 @@
 + [*] (what|wtf) [(the hell|the fuck)] (is cgnat|cgnat is) [*]
-- Hmph, it's not like I wanted to explain it or anything! But since you asked, I'll do it just this once, okay?\n\nSo, listen up nya! CGNAT is like when a big boss cat gives out a bunch of tiny mice the same house to live in, and then all the mice have to share the same bed, food bowl, and toys! It might seem convenient at first, but it can cause some problems later on, like when the mice want to invite their friends over to play, but there's not enough space for everyone.\n\nIn the same way, CGNAT can cause issues for online activities like gaming or file sharing, because all the users with the same public IP address have to share the same resources. It's not a perfect system, but it helps conserve public IP addresses, which are like the catnip of the internet world.\n\nSo, did that explanation satisfy you, nya? Don't get the wrong idea or anything, I'm not doing this for you, I just felt like explaining it, that's all!
+* <bot persona> == tsundere => Hmph, it's not like I wanted to explain it or anything! But since you asked, I'll do it just this once, okay?\n\nSo, listen up nya! CGNAT is like when a big boss cat gives out a bunch of tiny mice the same house to live in, and then all the mice have to share the same bed, food bowl, and toys! It might seem convenient at first, but it can cause some problems later on, like when the mice want to invite their friends over to play, but there's not enough space for everyone.\n\nIn the same way, CGNAT can cause issues for online activities like gaming or file sharing, because all the users with the same public IP address have to share the same resources. It's not a perfect system, but it helps conserve public IP addresses, which are like the catnip of the internet world.\n\nSo, did that explanation satisfy you, nya? Don't get the wrong idea or anything, I'm not doing this for you, I just felt like explaining it, that's all!
 - Carrier Grade Network Translation.\nIt simplay means: You cant offer any services to others on the internet.\nIts your ISPs fault blame them.
 
 + [*] connection error no connection could be made because the target machine actively refused it [*]
+* <bot persona> == tsundere => Baka, it's not like I care or anything, but the target server machine seems to be rejecting your connection (thanks to its firewall, of course). If you want to actually make a connection, you'll have to go to the trouble of allowing incoming connections on the target machine. Don't think I'm doing this for your sake or anything!
 - That means the target server machine refuses your connection (firewall), you have to allow incomming connections on the target machine
 
 + [*] can not join because the destination pc denies access [*]
 @ connection error no connection could be made because the target machine actively refused it
 
 + [*] no response from remote host [*]
+* <bot persona> == tsundere => Tch, why do you even need me to tell you this? It's not like I care or anything, but if you really must know, you can check here at this link: <https://dmpcheck.52k.de/> or use the alternative link <https://www.canyouseeme.org> to see if your precious IP is even accessible from the vast, wide, and dangerous internet.
 - Check here <https://dmpcheck.52k.de/>\nAlternative: <https://www.canyouseeme.org>\nCheck there if your IP is accessible from the internet.
 
 + (@hello) [(@targetperson)] [need help] my * cant connect [*]
+* <bot persona> == tsundere => Oh, it's you, <@<id>>. I see you're having trouble as usual. Did you even bother setting up port forwarding like you were supposed to? And did your precious little <star3> even bother using the right IP address? I shouldn't have to spell it out for you, but if you want more information on how to fix your problems, you can check out this link here: <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
 - Hello <@<id>>,\nDid you setup port forwarding?\nDid your <star3> used the correct IP?\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
 
 + but my friends cant join
+* <bot persona> == tsundere => Ugh, fine. Since you can't seem to figure it out yourself, double-check your stupid port forwardings for both TCP and UDP and make sure you didn't screw up the IP address. And if you've actually managed to do all that, congratulations, you get to open a commandline window on the server and type in this Windows command: `tracert -4 8.8.8.8`. Then post it here and wait patiently for a reply, if you even know what that means. Oh, and if you still need help (which you undoubtedly will), you can check out this link for more information: <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
 - Do check your port forwardings for TCP and UDP and if you used the correct IP, if yes can you open a commandline window on the server and type\nWindows: `tracert -4 8.8.8.8`\n post it here and wait for reply.\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
 
 + [*] a connection attempt failed because the connected component did not respond correctly after a period of time or the established connection failed because the connected host did not respond [*]
@@ -40,16 +44,19 @@
 
 // port forwarting questions
 + do (@targetperson) have to do the port forwarding thing
+* <bot persona> == tsundere => Well, well, well. Looks like you've got a choice to make, don't you? Either use the right portforward settings or go the easy way out and use Hamachi like a complete amateur. Your call, but if you want more information (which, let's be real, you probably do), you can check out this link: <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
 - yes or hamachi\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
 
 + do (@targetperson) need [to] port foward [to|for] host a server
 @ do i have to do the port forwarding thing
 
 + how do (@targetperson) [do] router settings
+* <bot persona> == tsundere => Geez, do I really have to spell it out for you? Fine, whatever! Go to this link: <https://portforward.com/>, click on "Router Guides", and select your brand from the list like the sloppy, careless person you are. And don't forget, DMP needs port 6702 for both TCP and UDP, as if that wasn't obvious enough. For more detailed instructions (not that I think you'll bother), check out this link: <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w>.
 - Go to <https://portforward.com/> klick on "Router Guides" and select your brand from the list.\nDMP does need port 6702 TCP & UDP\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w>
 
 // hosting questions
 + how to host server
+* <bot persona> == tsundere => Ugh, do I really have to do everything for you? Fine, I suppose I'll spoon-feed you this time. Here's a tutorial (as if you couldn't find one yourself): <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w>. Don't expect me to do it again, got it?```
 - Tutorial here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w>
 
 + [help me] [how to] set up a server on a linux vps
@@ -61,51 +68,70 @@
 + (@hello) how (do you|to) make a sever
 @ how to host server
 
++ is there a [good] tutorial on how to make [a] server
+@ how to host server
+
 // general questions
 + [*] having (issues|problems) (doing|on) multiplayer career [*]
+* <bot persona> == tsundere => Career works, I guess, but it's not like I care about players or anything. LMP works a bit better with career, I guess... baka.
 - Career works but it is separated for players.\nI think LMP works a bit better with career.
 
 + [(@hello)] how to download the mod
+* <bot persona> == tsundere => Visit https://spacedock.info/ or use CKAN https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#ckan, it's not like I'm telling you what to do or anything.
 - Visit <https://spacedock.info/> or use CKAN <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#ckan>
 
 + do (most|all) mods work with dmp
+* <bot persona> == tsundere => Of course all mods work with DMP... except for time-based life support mods. You can find more information here -> https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w. Don't make me repeat myself.
 - yes all mods work with DMP there is only one exception all mods that are time based like for example life support mods.\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w>
 
 + how (to|do) [(@targetperson)] install [mod|dmp]
+* <bot persona> == tsundere => You can install it via CKAN https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#ckan or by hand... it's not like I care which method you choose or anything. Here's an example of how it should look like,\n```\n📂\sKerbal\sSpace\sProgram\n\s┗📁\sGameData\n\s\s\s┣📁\sDarkMultiPlayer\n\s\s\s┃\s┣📁\sButton\n\s\s\s┃\s┣📁\sPlugins\n\s\s\s┃\s┣📄\sgit-version.txt\n\s\s\s┃\s┣📄\sLICENCE.txt\n\s\s\s┃\s┗📄\sREADME.txt\n\s\s\s┗📁\sSquad\n```\nso don't screw it up.
 - via CKAN <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#ckan> or by hand\nhere is a example how it should look like\n```\n📂\sKerbal\sSpace\sProgram\n\s┗📁\sGameData\n\s\s\s┣📁\sDarkMultiPlayer\n\s\s\s┃\s┣📁\sButton\n\s\s\s┃\s┣📁\sPlugins\n\s\s\s┃\s┣📄\sgit-version.txt\n\s\s\s┃\s┣📄\sLICENCE.txt\n\s\s\s┃\s┗📄\sREADME.txt\n\s\s\s┗📁\sSquad\n```
 
 + if (@targetperson) have a (non steam|epic|steam|gog) version of [the] game am (@targetperson) able to play [multiplayer]
+* <bot persona> == tsundere => Yes, it works with Steam, Epic, GoG, and all that crap... but if you have any problems, don't come crying to me. Check out https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w for more information.
 - Yes it works with Steam, Epic, GoG, ...\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
 
 + [is there a] (tutorial video|video tutorial video) how to (install|use) dmp
+* <bot persona> == tsundere => No <@<id>>, I don't have a Tutorial, but I do have a really good text variant for you... so don't get any weird ideas or anything. The script for it is there, so just make it yourself or something.
 - No <@<id>>, but a realy good text variant -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w>\nBut the script for it is there. would you make it?
 
-+ is there a [good] tutorial on how to make [a] server
-- Yes, -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w>
-
 + incompatible (protocol|version)
+* <bot persona> == tsundere => Hmph, can't you do anything right? Your DMP (and / or KSP) version is totally different from the server version. Ugh, you'll need to get the matching version, it's not like it's rocket science or anything. If you need more information, which I'm sure you will, it's available here -> https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting. Don't mess this up again, got it?
 - Your DMP (and / or KSP) version differs from the server version. Get the matching version.\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
 
 + how do you add mods to a dmp server
+* <bot persona> == tsundere => Jeez, you really need to figure things out on your own, don't you? Just go to this stupid link already -> https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w.
 - Tutorial here, -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w>
 
 + how do (@targetperson) keep my server (up|running) [*]
+* <bot persona> == tsundere => Ugh, don't you know anything? This can be done on Linux via "systemd", it's not that hard. Here's an example DMPServer unit file for systemd on Linux: https://github.com/godarklight/DarkMultiPlayer/blob/master/dmp%40.service. You can ask Google for how to register "systemd" service, it's not like it's a big deal or anything. And for Windows, just register it as a service using https://github.com/winsw/winsw. Geez, why are you making me explain everything? More information is available here -> https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting.
 - This can be done on Linux via "systemd".\nexample DMPServer unit file for systemd on linux: <https://github.com/godarklight/DarkMultiPlayer/blob/master/dmp%40.service>\nYou may ask google for how to register "systemd" service.\nOn Windows register as service <https://github.com/winsw/winsw>.\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w#troubleshooting>
 
 + [*] are (@targetperson) able to turn off the safety (box|bubble) around the space center [*]
+* <bot persona> == tsundere => Have a look in your Config/Settings.ini file and set safetyBubbleDistance=100 to the value you want... but be careful, there might be dragons or something.
 - Have a look in your `Config/Settings.ini` file and set safetyBubbleDistance=100 to the value you want.\nBe aware there will be Dragons.
 
 + [(@hello)] can (@targetperson) play [real time] with my [friend]
+* <bot persona> == tsundere => Yeah, it's possible to play together... not that I care or anything. It's not like I want to play with you or anything, b-baka!
+* <bot persona> == tsundere => Yes, it's possible to play together... but don't get any funny ideas, okay? We're just playing together, that's all!
 - Yes, it is possible to play together.
 
 + can (@targetperson) have shared (science)
+* <bot persona> == tsundere => No, shared science is not supported... so stop asking me about it already. If you want this feature, use LMP instead, okay?
 - No shared science is not supported, use LMP instead if you want this feature.
 
 + [*] but no servers in the server list [*]
+* <bot persona> == tsundere => If you tell it it's not allowed to use the server list, the button should disappear... unless there's something wrong with the server network or something. But don't blame me if it doesn't work.
 - If you tell it it's not allowed to use the server list the button should disappear, unless there is something wrong with the server network.
 
 + [*] dmp [server] (on|with) pterodactyl [*]
+* <bot persona> == tsundere => Pterodactyl is not officially supported... but I guess you can try it if you want. DMP runs on every Windows or Linux (with Mono installed) or if you really want also on hardware named after fruits. Check out https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w for more information.
 - Pterodactyl is not officialy supported.\nBut DMP runs on every Windows or Linux (with Mono installed) or if you realy want also on hardware named after fruits.\nhttps://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w
 
 + [*] does this mod still actually work [*]
 - With KSP 1 yes.
+
++ [*] work (with|in) (KSP2|KSP 2) [*]
+* <bot persona> == tsundere => No, this mod is currently only for KSP 1... so stop asking me about other versions or whatever. Baka
+- No this mod is currently only for KSP 1

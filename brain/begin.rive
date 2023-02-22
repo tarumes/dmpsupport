@@ -10,6 +10,10 @@
 ! array hello        = hello|hi|good\smorning|good\sevening|hey
 ! array targetperson = i|me|we|you|they
 
+! array personalist = default|tsundere
++ set persona (@personalist)
+- <bot persona=<star>>Updated Bot persona to <bot persona>.
+
 ////////////////////
 //  Substitutions //
 ////////////////////
@@ -148,20 +152,3 @@
 ! sub (k)       = kissyface
 ! sub (f)       = rose
 ! sub (w)       = wilted rose
-
-
-////////////////////
-//  Subfunctions  //
-////////////////////
-> object getTimeDiff javascript
-	var d = new Date(parseInt(args[0]));
-	var now = new Date();
-	return `${(now.getFullYear() - d.getFullYear())}`;
-< object
-
-> object dopercent javascript
-	var repeat = function (str, num) {
-    	return new Array(num + 1).join(str);
-	}
-	
-< object
