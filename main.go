@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"html/template"
 	"log"
+	"math"
 	"math/rand"
 	"net/http"
 	"os"
@@ -162,15 +163,18 @@ func main() {
 		} else if reply != "" {
 			log.Println("[INFO]", reply)
 			if !mute {
-				time.Sleep(time.Second * 10)
+				time.Sleep(time.Second * 5)
 				defer s.ChannelTyping("")
 
-				for i := 0; i < len(strings.Split(reply, "\n"))+int(RandomNumber(1, 6)); i = i + 1 {
+				cpm := float64(len([]rune(reply)) * 150)
+				rounds := math.RoundToEven((cpm / 1000))
+
+				for i := 0; i < int(rounds)+int(RandomNumber(1, 2)); i = i + 1 {
 					err = s.ChannelTyping(m.ChannelID)
 					if err != nil {
 						log.Printf("Couldn't start typing: %v", err)
 					}
-					time.Sleep(5000 * time.Millisecond)
+					time.Sleep(1000 * time.Millisecond)
 				}
 
 				if _, err := s.ChannelMessageSendReply(m.ChannelID, reply, m.Reference()); err != nil {
@@ -207,14 +211,18 @@ func main() {
 		} else if reply != "" {
 			log.Println("[INFO]", reply)
 			if !mute {
-				time.Sleep(time.Second * 10)
+				time.Sleep(time.Second * 5)
 				defer s.ChannelTyping("")
-				for i := 0; i < len(strings.Split(reply, "\n"))+int(RandomNumber(1, 6)); i = i + 1 {
+
+				cpm := float64(len([]rune(reply)) * 150)
+				rounds := math.RoundToEven((cpm / 1000))
+
+				for i := 0; i < int(rounds)+int(RandomNumber(1, 2)); i = i + 1 {
 					err = s.ChannelTyping(m.ChannelID)
 					if err != nil {
 						log.Printf("Couldn't start typing: %v", err)
 					}
-					time.Sleep(5000 * time.Millisecond)
+					time.Sleep(1000 * time.Millisecond)
 				}
 
 				if _, err := s.ChannelMessageSendReply(m.ChannelID, reply, m.Reference()); err != nil {

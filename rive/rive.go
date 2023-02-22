@@ -40,7 +40,7 @@ type Message struct {
 var spaces *regexp.Regexp = regexp.MustCompile(`\s{1,}`)
 
 func New(debug bool) *Client {
-	var session *sessions.MemoryStore = sessions.New("sessions.db")
+	var session *sessions.MemoryStore = sessions.New("session.db")
 	geo := geoapi.New()
 
 	db, err := sql.Open("sqlite", "rivescript.db")
