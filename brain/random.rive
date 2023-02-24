@@ -24,7 +24,7 @@
 + [*] a connection attempt failed because the connected component did not respond correctly after a period of time or the established connection failed because the connected host did not respond [*]
 @ but my friends cant join
 
-+ my * cant connect
++ my * (cant|cannot) (connect|join)
 @ but my friends cant join
 
 + [i|we] cant connect to [my] * server
@@ -55,21 +55,24 @@
 - Go to <https://portforward.com/> klick on "Router Guides" and select your brand from the list.\nDMP does need port 6702 TCP & UDP\nMore here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w>
 
 // hosting questions
-+ how to host server
-* <bot persona> == tsundere => Ugh, do I really have to do everything for you? Fine, I suppose I'll spoon-feed you this time. Here's a tutorial (as if you couldn't find one yourself): <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w>. Don't expect me to do it again, got it?```
++ how to host dmp server
+* <bot persona> == tsundere => Ugh, do I really have to do everything for you? Fine, I suppose I'll spoon-feed you this time. Here's a tutorial (as if you couldn't find one yourself): <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w>. Don't expect me to do it again, got it? Baka
 - Tutorial here -> <https://pad.52k.de/eJi0s7LQT6SeHfLXvOQd1w>
 
 + [help me] [how to] set up a server on a linux vps
-@ how to host server
+@ how to host dmp server
 
 + can (@targetperson) host it [*]
-@ how to host server
+@ how to host dmp server
+
++ how do i run a dmp server
+@ how to host dmp server
 
 + (@hello) how (do you|to) make a sever
-@ how to host server
+@ how to host dmp server
 
 + is there a [good] tutorial on how to make [a] server
-@ how to host server
+@ how to host dmp server
 
 // general questions
 + [*] having (issues|problems) (doing|on) multiplayer career [*]
@@ -135,3 +138,9 @@
 + [*] work (with|in) (ksp2|ksp 2) [*]
 * <bot persona> == tsundere => No, this mod is currently only for KSP 1... so stop asking me about other versions or whatever. Baka
 - No this mod is currently only for KSP 1
+
++ [*] parts [*] add [*] (list|whitelist|blacklist|denylist|allowlist) [*]
+- There are buttons for it in-game. It should be in DMP-Settings -> Advanced -> Generate Blacklist
+
++ [*] (will|does|can) [i] [run|use] dmp [server] [be] [run|used] on (xbox|xbox one|ps|ps4|ps5|ps 4|ps 5|playstation|playstation 4|playstation 5) [*]
+- No there is currently no easy way to Mod the game on Console.

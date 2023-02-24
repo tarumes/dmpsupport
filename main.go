@@ -95,7 +95,10 @@ func main() {
 			case http.MethodPost:
 				r.ParseForm()
 				if r.FormValue("id") != "" && r.FormValue("guild") != "" && r.FormValue("channel") != "" && r.FormValue("content") != "" && r.FormValue("trigger") != "" {
-					rs.LearnNew(r.FormValue("trigger"), r.FormValue("content"))
+					if r.FormValue("save") == "save" {
+						fmt.Println("learn new", r.FormValue("trigger"), r.FormValue("content"))
+						rs.LearnNew(r.FormValue("trigger"), r.FormValue("content"))
+					}
 					messages = mmFilter(r.FormValue("id"))
 					if !mute {
 						go func() {
@@ -163,6 +166,13 @@ func main() {
 		} else if reply != "" {
 			log.Println("[INFO]", reply)
 			if !mute {
+				err := s.MessageReactionAdd(m.ChannelID, m.ID, "💬")
+				if err != nil {
+					log.Println("[ERR]", err)
+					return
+				}
+				defer s.MessageReactionRemove(m.ChannelID, m.ID, "💬", s.State.User.ID)
+
 				time.Sleep(time.Second * 5)
 				defer s.ChannelTyping("")
 
@@ -211,6 +221,13 @@ func main() {
 		} else if reply != "" {
 			log.Println("[INFO]", reply)
 			if !mute {
+				err := s.MessageReactionAdd(m.ChannelID, m.ID, "💬")
+				if err != nil {
+					log.Println("[ERR]", err)
+					return
+				}
+				defer s.MessageReactionRemove(m.ChannelID, m.ID, "💬", s.State.User.ID)
+				
 				time.Sleep(time.Second * 5)
 				defer s.ChannelTyping("")
 

@@ -67,7 +67,7 @@ func New(debug bool) *Client {
 		Seed:           time.Now().UnixNano(), // Random number seed (default is == 0)
 		SessionManager: session,               // Default in-memory session manager
 	})
-	r.SetUnicodePunctuation(`[.,!?;:"]`)
+	r.SetUnicodePunctuation(`[.,!?;:"@]`)
 	r.SetHandler("javascript", javascript.New(r))
 	if err := r.LoadDirectory("brain"); err != nil {
 		return nil
@@ -205,6 +205,7 @@ func (c *Client) Reply(username, message string) (string, error) {
 	if r, err := c.r.Reply(username, msg); err != nil {
 		c.r.SetUnicodePunctuation(pf)
 		if r2, err := c.r.Reply(username, msg); err != nil {
+			log.Println(err,c.r.UnicodePunctuation.ReplaceAllString(msg, ""))
 			return "", err
 		} else if r2 == "" {
 			return "", fmt.Errorf("empty reply")
